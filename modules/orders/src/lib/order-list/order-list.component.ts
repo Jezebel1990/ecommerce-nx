@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RatingService } from '../services/rating/rating.service';
 
 @Component({
   selector: 'lib-order-list',
@@ -7,7 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./order-list.component.scss'],
 })
 export class OrderListComponent {
-
+  constructor(private ratingService: RatingService) {}
 
   form = new FormGroup({
     rating: new FormControl<number | null>(
@@ -16,7 +17,9 @@ export class OrderListComponent {
     ),
     comment: new FormControl(''),
   });
-
+  onSubmit(): void {
+    this.ratingService.setRating(this.form.value);
+  }
 }
   
   
